@@ -1,0 +1,74 @@
+erDiagram
+    USERS ||--o{ PRODUCTS : creates
+    USERS ||--o{ ORDERS : creates
+    CATEGORIES ||--o{ PRODUCTS : contains
+    PRODUCTS ||--o| INVENTORY : tracks
+    PRODUCTS ||--o{ ORDER_ITEMS : includes
+    ORDERS ||--o{ ORDER_ITEMS : contains
+
+    USERS {
+        string _id PK
+        string email UK
+        string firstName
+        string lastName
+        string password
+        string role
+        boolean isActive
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    CATEGORIES {
+        string _id PK
+        string name UK
+        string description
+        boolean isActive
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    PRODUCTS {
+        string _id PK
+        string sku UK
+        string name
+        string description
+        string categoryId FK
+        string createdBy FK
+        decimal basePrice
+        decimal costPrice
+        boolean isActive
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    INVENTORY {
+        string _id PK
+        string productId FK "unique"
+        integer quantity
+        timestamp lastUpdated
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    ORDERS {
+        string _id PK
+        string orderNumber UK
+        string userId FK
+        string status
+        decimal totalAmount
+        decimal tax
+        timestamp orderDate
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    ORDER_ITEMS {
+        string _id PK
+        string orderId FK
+        string productId FK
+        integer quantity
+        decimal unitPrice
+        decimal totalPrice
+        timestamp createdAt
+        timestamp updatedAt
+    }
